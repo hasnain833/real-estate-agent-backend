@@ -25,27 +25,8 @@ jobs:
             # Pull latest changes
             git pull origin main
             
-            # Create .env file from GitHub Secrets
-            echo "PORT=5051" > .env
-            echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
-            echo "TWILIO_ACCOUNT_SID=${{ secrets.TWILIO_ACCOUNT_SID }}" >> .env
-            echo "TWILIO_AUTH_TOKEN=${{ secrets.TWILIO_AUTH_TOKEN }}" >> .env
-            echo "TWILIO_PHONE_NUMBER=${{ secrets.TWILIO_PHONE_NUMBER }}" >> .env
-            echo "DEEPGRAM_API_KEY=${{ secrets.DEEPGRAM_API_KEY }}" >> .env
-            echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> .env
-            echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> .env
-            echo "ELEVENLABS_API_KEY=${{ secrets.ELEVENLABS_API_KEY }}" >> .env
-            echo "ELEVENLABS_VOICE_ID=${{ secrets.ELEVENLABS_VOICE_ID }}" >> .env
-            echo "BREVO_SMTP_USER=${{ secrets.BREVO_SMTP_USER }}" >> .env
-            echo "BREVO_SMTP_KEY=${{ secrets.BREVO_SMTP_KEY }}" >> .env
-            echo "BREVO_FROM_EMAIL=${{ secrets.BREVO_FROM_EMAIL }}" >> .env
-            echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
-            echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
-            echo "GOOGLE_REDIRECT_URI=${{ secrets.GOOGLE_REDIRECT_URI }}" >> .env
-            echo "FRONTEND_URL=${{ secrets.FRONTEND_URL }}" >> .env
-            echo "GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }}" >> .env
-            echo "BACKEND_URL=${{ secrets.BACKEND_URL }}" >> .env
-            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+            # Create .env file from a single GitHub Secret
+            echo "${{ secrets.ENV_FILE }}" > .env
             
             # Install dependencies
             npm install --production
