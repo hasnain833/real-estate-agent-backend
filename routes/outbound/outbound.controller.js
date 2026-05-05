@@ -26,8 +26,10 @@ export const outboundCall = async (req, res) => {
 
         console.log(`Initiating outbound call to ${to} for agent ${agentId} via Twilio API...`);
 
-        const pinggyUrl = req.body.pinggyUrl;
-        const host = pinggyUrl ? new URL(pinggyUrl).host : req.headers.host;
+        // Use BACKEND_URL from env if it exists, otherwise fallback to request host
+        const backendUrl = process.env.BACKEND_URL || (req.body.pinggyUrl ? new URL(req.body.pinggyUrl).origin : `https://${req.headers.host}`);
+        const host = new URL(backendUrl).host;
+        
         const queryParams = new URLSearchParams({
             name: name || '',
             phone: to || '',
